@@ -1,3 +1,5 @@
+// Video demo: https://www.youtube.com/watch?v=AaIZ4X26AM8
+
 #include <LiquidCrystal.h>
 
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
@@ -11,8 +13,9 @@ long prevFrame = 0;
 long totalFrame = 0;
 bool gameRunning = false;
 
-class Scene {
- public:
+class Scene
+{
+public:
   Scene();
   void Render();
   void ShowStartMessage();
@@ -20,17 +23,20 @@ class Scene {
   void Update();
   void MoveCar();
   void Restart();
- private:
+
+private:
   char contents_[2][16];
   char car_ = '>';
   char obstacle_ = 'O';
 };
 
-Scene::Scene() {
+Scene::Scene()
+{
   gameRunning = false;
 }
 
-void Scene::ShowStartMessage() {
+void Scene::ShowStartMessage()
+{
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("Ready?");
@@ -39,9 +45,12 @@ void Scene::ShowStartMessage() {
   delay(10);
 }
 
-void Scene::Restart() {
-  for (int r = 0; r < 2; r++) {
-    for (int c = 0; c < 16; c++) {
+void Scene::Restart()
+{
+  for (int r = 0; r < 2; r++)
+  {
+    for (int c = 0; c < 16; c++)
+    {
       contents_[r][c] = ' ';
     }
   }
@@ -51,7 +60,8 @@ void Scene::Restart() {
   prevFrame = 0;
   totalFrame = 0;
 }
-void Scene::Render() {
+void Scene::Render()
+{
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print(contents_[0]);
@@ -60,7 +70,8 @@ void Scene::Render() {
   delay(10);
 }
 
-void Scene::ShowDeathMessage() {
+void Scene::ShowDeathMessage()
+{
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("Car crashed...");
@@ -70,55 +81,76 @@ void Scene::ShowDeathMessage() {
   gameRunning = false;
 }
 
-void Scene::Update() {
+void Scene::Update()
+{
   // Death check.
-  for (int r = 0; r < 2; r++) {
-    if (contents_[r][0] == car_ && contents_[r][1] != ' ') {
+  for (int r = 0; r < 2; r++)
+  {
+    if (contents_[r][0] == car_ && contents_[r][1] != ' ')
+    {
       ShowDeathMessage();
       return;
     }
   }
   // Left shift.
-  for (int r = 0; r < 2; r++) {
-    for (int c = 0; c < 15; c++) {
-      if (contents_[r][c] != car_) {
+  for (int r = 0; r < 2; r++)
+  {
+    for (int c = 0; c < 15; c++)
+    {
+      if (contents_[r][c] != car_)
+      {
         contents_[r][c] = contents_[r][c + 1];
       }
     }
   }
   // New column.
   int num = random(4);
-  if (num == 0) {
+  if (num == 0)
+  {
     contents_[0][15] = obstacle_;
     contents_[1][15] = ' ';
-  } else if (num == 1) {
+  }
+  else if (num == 1)
+  {
     contents_[0][15] = ' ';
     contents_[1][15] = obstacle_;
-  } else {
+  }
+  else
+  {
     contents_[0][15] = ' ';
     contents_[1][15] = ' ';
   }
   // No must-die scenarios.
-  for (int r = 0; r < 2; r++) {
-    if (contents_[r][14] != ' ') {
-      contents_[1-r][15] = ' ';
+  for (int r = 0; r < 2; r++)
+  {
+    if (contents_[r][14] != ' ')
+    {
+      contents_[1 - r][15] = ' ';
     }
   }
   Serial.print("\nRow 1: ");
-  for (int i = 0; i < 16; i++) Serial.print(contents_[0][i]);
+  for (int i = 0; i < 16; i++)
+    Serial.print(contents_[0][i]);
   Serial.print("\nRow 2: ");
-  for (int i = 0; i < 16; i++) Serial.print(contents_[1][i]);
+  for (int i = 0; i < 16; i++)
+    Serial.print(contents_[1][i]);
   Serial.println("");
 }
 
-void Scene::MoveCar() {
-  for (int r = 0; r < 2; r++) {
-    if (contents_[r][0] == car_) {
-      if (contents_[1-r][0] == obstacle_) {
+void Scene::MoveCar()
+{
+  for (int r = 0; r < 2; r++)
+  {
+    if (contents_[r][0] == car_)
+    {
+      if (contents_[1 - r][0] == obstacle_)
+      {
         ShowDeathMessage();
         return;
-      } else {
-        contents_[1-r][0] = car_;
+      }
+      else
+      {
+        contents_[1 - r][0] = car_;
         contents_[r][0] = ' ';
         return;
       }
@@ -128,23 +160,29 @@ void Scene::MoveCar() {
 
 Scene scene;
 
-void setup() {
+void setup()
+{
   lcd.begin(16, 2);
   Serial.begin(9600);
   pinMode(switchPin, INPUT);
   scene.ShowStartMessage();
 }
 
-void loop() {
+void loop()
+{
   // Handle switch.
   bool needToRender = false;
   switchState = digitalRead(switchPin);
   delay(10);
-  if (switchState != prevSwitchState && switchState == HIGH) {
-    if (!gameRunning) {
+  if (switchState != prevSwitchState && switchState == HIGH)
+  {
+    if (!gameRunning)
+    {
       scene.Restart();
       needToRender = true;
-    } else {
+    }
+    else
+    {
       scene.MoveCar();
       needToRender = true;
     }
@@ -153,20 +191,24 @@ void loop() {
 
   // Handle frame.
   long frame = millis();
-  if (frame - prevFrame >= frameStepMs) {
+  if (frame - prevFrame >= frameStepMs)
+  {
     scene.Update();
     needToRender = true;
     totalFrame++;
     prevFrame = frame;
-    if (totalFrame > 0 && totalFrame % 10 == 0) {
-      if (frameStepMs > 200) {
+    if (totalFrame > 0 && totalFrame % 10 == 0)
+    {
+      if (frameStepMs > 200)
+      {
         frameStepMs -= 20;
       }
     }
   }
 
   // Do rendering.
-  if (gameRunning && needToRender) {
+  if (gameRunning && needToRender)
+  {
     scene.Render();
   }
 }
