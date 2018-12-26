@@ -18,7 +18,11 @@ matrix:
       - arduino --install-library "Adafruit SleepyDog Library","Adafruit FONA Library"
     script:
       - build_main_platforms
-  - install:
+  - language: python
+    python:
+    - 3.5
+    cache: pip
+    install:
     - pip install -q cpplint
     script:
     - python -m cpplint --extensions=ino --linelength=80 --filter=-runtime/int Arduino/LCD_racing_car/racing_car.ino
