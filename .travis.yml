@@ -14,5 +14,7 @@ before_install:
   - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
 install:
   - arduino --install-library "Adafruit SleepyDog Library","Adafruit FONA Library"
+  - pip install -q cpplint
 script:
+  - python -m cpplint --extensions=ino --linelength=80 --filter=-runtime/int Arduino/LCD_racing_car/racing_car.ino
   - build_main_platforms
