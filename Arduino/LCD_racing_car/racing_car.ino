@@ -1,5 +1,41 @@
 // Copyright 2018, Quan Wang
 // Video demo: https://www.youtube.com/watch?v=AaIZ4X26AM8
+//
+// Circuit / Schematic Summary:
+// ----------------------------
+// All parts are included in the Official Arduino Starter Kit (K000007).
+// The circuit is the kit's Projects Book "Project 11 - Crystal Ball"
+// circuit, with the tilt switch replaced by one of the kit's pushbuttons
+// (the pushbutton + 10k pull-down is the "Project 02" arrangement).
+// See README.md and schematic.svg in this folder for the full diagram.
+//
+// Components (kit quantity in parentheses):
+//   - Arduino Uno Rev3 (1)
+//   - 16x2 character LCD, kit part JHD659 M10 - HD44780 compatible (1)
+//   - 10k ohm potentiometer, LCD contrast (kit has 3)
+//   - 220 ohm resistor, LCD backlight current limiter (kit has 20)
+//   - Pushbutton, 4-leg tactile: start / restart / lane toggle (kit has 10)
+//   - 10k ohm resistor, pull-down for the pushbutton on pin 6 (kit has 20)
+//   - Breadboard (400 points) and solid-core jumper wires
+//
+// 16x2 LCD Pinout (pin numbers per the kit LCD's datasheet):
+//   - Pin 1  (VSS)  -> GND
+//   - Pin 2  (VDD)  -> +5V
+//   - Pin 3  (V0)   -> 10k ohm potentiometer wiper (ends to +5V and GND)
+//   - Pin 4  (RS)   -> Arduino Digital Pin 12
+//   - Pin 5  (R/W)  -> GND
+//   - Pin 6  (E)    -> Arduino Digital Pin 11
+//   - Pin 7-10 (DB0-DB3) -> Not connected (4-bit mode)
+//   - Pin 11 (DB4)  -> Arduino Digital Pin 5
+//   - Pin 12 (DB5)  -> Arduino Digital Pin 4
+//   - Pin 13 (DB6)  -> Arduino Digital Pin 3
+//   - Pin 14 (DB7)  -> Arduino Digital Pin 2
+//   - Pin 15 (LEDA / LED+) -> +5V via 220 ohm resistor
+//   - Pin 16 (LEDK / LED-) -> GND
+//
+// Pushbutton (Active-HIGH; use two diagonally opposite legs):
+//   - Leg A -> +5V
+//   - Leg B -> Arduino Digital Pin 6, and to GND via 10k ohm pull-down
 
 #include <LiquidCrystal.h>
 

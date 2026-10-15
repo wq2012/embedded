@@ -1,0 +1,274 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 680" width="100%" height="100%" font-family="Consolas, 'Courier New', monospace">
+  <defs>
+    <style>
+      .bg { fill: #fafafa; }
+      .board-arduino { fill: #006871; stroke: #00444a; stroke-width: 2.5; rx: 8; }
+      .board-lcd { fill: #1b5e20; stroke: #0d3b10; stroke-width: 2.5; rx: 8; }
+      .lcd-screen { fill: #8bc34a; stroke: #33691e; stroke-width: 2; rx: 4; }
+      .component-box { fill: #ffffff; stroke: #37474f; stroke-width: 2; rx: 5; }
+      .resistor { fill: #ffe0b2; stroke: #e65100; stroke-width: 2; rx: 3; }
+      .pin-pad { fill: #ffd54f; stroke: #ff8f00; stroke-width: 1.5; }
+      .pin-nc { fill: #cfd8dc; stroke: #78909c; stroke-width: 1.5; }
+      .wire-5v { stroke: #d32f2f; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .wire-gnd { stroke: #212121; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .wire-ctrl { stroke: #1976d2; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .wire-data { stroke: #7b1fa2; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .wire-btn { stroke: #f57c00; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .wire-pot { stroke: #00897b; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .junction-5v { fill: #d32f2f; }
+      .junction-gnd { fill: #212121; }
+      .junction-btn { fill: #f57c00; }
+      .title { font-size: 20px; font-weight: bold; fill: #263238; }
+      .subtitle { font-size: 12px; fill: #546e7a; }
+      .board-title { font-size: 16px; font-weight: bold; fill: #ffffff; }
+      .lcd-text { font-size: 16px; font-weight: bold; fill: #1b3009; letter-spacing: 3px; }
+      .pin-label-light { font-size: 12px; font-weight: bold; fill: #ffffff; }
+      .pin-label-dark { font-size: 12px; font-weight: bold; fill: #263238; }
+      .comp-label { font-size: 12px; font-weight: bold; fill: #263238; }
+      .note-label { font-size: 11px; fill: #455a64; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="680" class="bg" />
+
+  <!-- Title Banner -->
+  <text x="500" y="34" text-anchor="middle" class="title">Arduino LCD Racing Car — Circuit Schematic</text>
+  <text x="500" y="52" text-anchor="middle" class="subtitle">LiquidCrystal lcd(12, 11, 5, 4, 3, 2) | Push Button on D6 (Active-HIGH with 10kΩ Pull-Down)</text>
+  <text x="500" y="68" text-anchor="middle" class="subtitle">All parts from the Official Arduino Starter Kit (K000007): Projects Book Project 11 circuit, pushbutton instead of tilt switch</text>
+
+  <!-- Power Rails -->
+  <!-- +5V Rail (Top, y=85) -->
+  <path d="M 70 85 L 950 85" class="wire-5v" />
+  <text x="35" y="89" class="pin-label-dark" fill="#d32f2f">+5V</text>
+
+  <!-- GND Rail (Bottom, y=625) -->
+  <path d="M 70 625 L 950 625" class="wire-gnd" />
+  <text x="35" y="629" class="pin-label-dark">GND</text>
+
+  <!-- ==================== ARDUINO UNO BOARD ==================== -->
+  <rect x="70" y="150" width="220" height="400" class="board-arduino" />
+  <text x="180" y="185" text-anchor="middle" class="board-title">ARDUINO UNO</text>
+  <text x="180" y="203" text-anchor="middle" class="pin-label-light" opacity="0.8">(ATmega328P)</text>
+
+  <!-- Arduino Power Pins -->
+  <!-- 5V -->
+  <circle cx="120" cy="150" r="5" class="pin-pad" />
+  <text x="120" y="170" text-anchor="middle" class="pin-label-light">5V</text>
+  <path d="M 120 145 L 120 85" class="wire-5v" />
+  <circle cx="120" cy="85" r="4" class="junction-5v" />
+
+  <!-- GND -->
+  <circle cx="120" cy="550" r="5" class="pin-pad" />
+  <text x="120" y="538" text-anchor="middle" class="pin-label-light">GND</text>
+  <path d="M 120 555 L 120 625" class="wire-gnd" />
+  <circle cx="120" cy="625" r="4" class="junction-gnd" />
+
+  <!-- Arduino Digital Pins (Right edge x=290) -->
+  <!-- D12 (RS) y=330 -->
+  <circle cx="290" cy="330" r="5" class="pin-pad" />
+  <text x="275" y="334" text-anchor="end" class="pin-label-light">D12 (RS)</text>
+
+  <!-- D11 (E) y=352 -->
+  <circle cx="290" cy="352" r="5" class="pin-pad" />
+  <text x="275" y="356" text-anchor="end" class="pin-label-light">D11 (E)</text>
+
+  <!-- D5 (LCD D4) y=378 -->
+  <circle cx="290" cy="378" r="5" class="pin-pad" />
+  <text x="275" y="382" text-anchor="end" class="pin-label-light">D5</text>
+
+  <!-- D4 (LCD D5) y=400 -->
+  <circle cx="290" cy="400" r="5" class="pin-pad" />
+  <text x="275" y="404" text-anchor="end" class="pin-label-light">D4</text>
+
+  <!-- D3 (LCD D6) y=422 -->
+  <circle cx="290" cy="422" r="5" class="pin-pad" />
+  <text x="275" y="426" text-anchor="end" class="pin-label-light">D3</text>
+
+  <!-- D2 (LCD D7) y=444 -->
+  <circle cx="290" cy="444" r="5" class="pin-pad" />
+  <text x="275" y="448" text-anchor="end" class="pin-label-light">D2</text>
+
+  <!-- D6 (Switch) y=495 -->
+  <circle cx="290" cy="495" r="5" class="pin-pad" />
+  <text x="275" y="499" text-anchor="end" class="pin-label-light">D6 (SW)</text>
+
+  <!-- ==================== 16x2 LCD MODULE ==================== -->
+  <rect x="470" y="120" width="460" height="185" class="board-lcd" />
+  <text x="700" y="145" text-anchor="middle" class="board-title">16x2 LCD (JHD659, HD44780-compatible)</text>
+
+  <!-- LCD Screen Area -->
+  <rect x="500" y="158" width="400" height="80" class="lcd-screen" />
+  <text x="520" y="192" class="lcd-text">&gt;     O     O   </text>
+  <text x="520" y="222" class="lcd-text">   O     O     O</text>
+
+  <!-- LCD 16 Pins along bottom edge (y=305), spaced by 26px from x=505 to x=895 -->
+  <!-- Pin 1: VSS (x=505) -->
+  <circle cx="505" cy="305" r="5" class="pin-pad" />
+  <text x="505" y="290" text-anchor="middle" class="pin-label-light">1</text>
+  <text x="505" y="275" text-anchor="middle" class="pin-label-light" font-size="10">VSS</text>
+
+  <!-- Pin 2: VDD (x=531) -->
+  <circle cx="531" cy="305" r="5" class="pin-pad" />
+  <text x="531" y="290" text-anchor="middle" class="pin-label-light">2</text>
+  <text x="531" y="275" text-anchor="middle" class="pin-label-light" font-size="10">VDD</text>
+
+  <!-- Pin 3: V0 (x=557) -->
+  <circle cx="557" cy="305" r="5" class="pin-pad" />
+  <text x="557" y="290" text-anchor="middle" class="pin-label-light">3</text>
+  <text x="557" y="275" text-anchor="middle" class="pin-label-light" font-size="10">V0</text>
+
+  <!-- Pin 4: RS (x=583) -->
+  <circle cx="583" cy="305" r="5" class="pin-pad" />
+  <text x="583" y="290" text-anchor="middle" class="pin-label-light">4</text>
+  <text x="583" y="275" text-anchor="middle" class="pin-label-light" font-size="10">RS</text>
+
+  <!-- Pin 5: R/W (x=609) -->
+  <circle cx="609" cy="305" r="5" class="pin-pad" />
+  <text x="609" y="290" text-anchor="middle" class="pin-label-light">5</text>
+  <text x="609" y="275" text-anchor="middle" class="pin-label-light" font-size="10">RW</text>
+
+  <!-- Pin 6: E (x=635) -->
+  <circle cx="635" cy="305" r="5" class="pin-pad" />
+  <text x="635" y="290" text-anchor="middle" class="pin-label-light">6</text>
+  <text x="635" y="275" text-anchor="middle" class="pin-label-light" font-size="10">E</text>
+
+  <!-- Pins 7-10: D0-D3 (NC) (x=661, 687, 713, 739) -->
+  <circle cx="661" cy="305" r="4.5" class="pin-nc" />
+  <text x="661" y="290" text-anchor="middle" class="pin-label-light" opacity="0.6">7</text>
+  <text x="661" y="275" text-anchor="middle" class="pin-label-light" font-size="10" opacity="0.6">D0</text>
+
+  <circle cx="687" cy="305" r="4.5" class="pin-nc" />
+  <text x="687" y="290" text-anchor="middle" class="pin-label-light" opacity="0.6">8</text>
+  <text x="687" y="275" text-anchor="middle" class="pin-label-light" font-size="10" opacity="0.6">D1</text>
+
+  <circle cx="713" cy="305" r="4.5" class="pin-nc" />
+  <text x="713" y="290" text-anchor="middle" class="pin-label-light" opacity="0.6">9</text>
+  <text x="713" y="275" text-anchor="middle" class="pin-label-light" font-size="10" opacity="0.6">D2</text>
+
+  <circle cx="739" cy="305" r="4.5" class="pin-nc" />
+  <text x="739" y="290" text-anchor="middle" class="pin-label-light" opacity="0.6">10</text>
+  <text x="739" y="275" text-anchor="middle" class="pin-label-light" font-size="10" opacity="0.6">D3</text>
+
+  <!-- Pin 11: D4 (x=765) -->
+  <circle cx="765" cy="305" r="5" class="pin-pad" />
+  <text x="765" y="290" text-anchor="middle" class="pin-label-light">11</text>
+  <text x="765" y="275" text-anchor="middle" class="pin-label-light" font-size="10">D4</text>
+
+  <!-- Pin 12: D5 (x=791) -->
+  <circle cx="791" cy="305" r="5" class="pin-pad" />
+  <text x="791" y="290" text-anchor="middle" class="pin-label-light">12</text>
+  <text x="791" y="275" text-anchor="middle" class="pin-label-light" font-size="10">D5</text>
+
+  <!-- Pin 13: D6 (x=817) -->
+  <circle cx="817" cy="305" r="5" class="pin-pad" />
+  <text x="817" y="290" text-anchor="middle" class="pin-label-light">13</text>
+  <text x="817" y="275" text-anchor="middle" class="pin-label-light" font-size="10">D6</text>
+
+  <!-- Pin 14: D7 (x=843) -->
+  <circle cx="843" cy="305" r="5" class="pin-pad" />
+  <text x="843" y="290" text-anchor="middle" class="pin-label-light">14</text>
+  <text x="843" y="275" text-anchor="middle" class="pin-label-light" font-size="10">D7</text>
+
+  <!-- Pin 15: A / LED+ (x=869) -->
+  <circle cx="869" cy="305" r="5" class="pin-pad" />
+  <text x="869" y="290" text-anchor="middle" class="pin-label-light">15</text>
+  <text x="869" y="275" text-anchor="middle" class="pin-label-light" font-size="10">A</text>
+
+  <!-- Pin 16: K / LED- (x=895) -->
+  <circle cx="895" cy="305" r="5" class="pin-pad" />
+  <text x="895" y="290" text-anchor="middle" class="pin-label-light">16</text>
+  <text x="895" y="275" text-anchor="middle" class="pin-label-light" font-size="10">K</text>
+
+  <!-- ==================== LCD CONTROL & DATA WIRES (NESTED L-BUS) ==================== -->
+  <!-- Pin 4 (RS) to Arduino D12 (y=330) -->
+  <path d="M 295 330 L 583 330 L 583 310" class="wire-ctrl" />
+
+  <!-- Pin 6 (E) to Arduino D11 (y=352) -->
+  <path d="M 295 352 L 635 352 L 635 310" class="wire-ctrl" />
+
+  <!-- Pin 11 (D4) to Arduino D5 (y=378) -->
+  <path d="M 295 378 L 765 378 L 765 310" class="wire-data" />
+
+  <!-- Pin 12 (D5) to Arduino D4 (y=400) -->
+  <path d="M 295 400 L 791 400 L 791 310" class="wire-data" />
+
+  <!-- Pin 13 (D6) to Arduino D3 (y=422) -->
+  <path d="M 295 422 L 817 422 L 817 310" class="wire-data" />
+
+  <!-- Pin 14 (D7) to Arduino D2 (y=444) -->
+  <path d="M 295 444 L 843 444 L 843 310" class="wire-data" />
+
+  <!-- ==================== LCD POWER, CONTRAST & BACKLIGHT ==================== -->
+  <!-- Pin 1 (VSS) to GND -->
+  <path d="M 505 310 L 505 625" class="wire-gnd" />
+  <circle cx="505" cy="625" r="4" class="junction-gnd" />
+
+  <!-- Pin 2 (VDD) to +5V (routed left of LCD at x=440) -->
+  <path d="M 531 310 L 531 470 L 440 470 L 440 85" class="wire-5v" />
+  <circle cx="440" cy="85" r="4" class="junction-5v" />
+
+  <!-- Pin 3 (V0) Contrast Potentiometer (10kΩ) -->
+  <rect x="527" y="490" width="60" height="70" class="component-box" />
+  <text x="557" y="520" text-anchor="middle" class="comp-label">10kΩ</text>
+  <text x="557" y="537" text-anchor="middle" class="note-label">Pot</text>
+  <!-- Wiper to V0 (Pin 3) -->
+  <path d="M 557 490 L 557 310" class="wire-pot" />
+  <text x="568" y="480" class="note-label" fill="#00897b">Wiper</text>
+  <!-- Pot leg 1 to +5V -->
+  <path d="M 540 560 L 540 585 L 440 585 L 440 470" class="wire-5v" />
+  <circle cx="440" cy="470" r="4" class="junction-5v" />
+  <!-- Pot leg 2 to GND -->
+  <path d="M 574 560 L 574 625" class="wire-gnd" />
+  <circle cx="574" cy="625" r="4" class="junction-gnd" />
+
+  <!-- Pin 5 (R/W) to GND -->
+  <path d="M 609 310 L 609 625" class="wire-gnd" />
+  <circle cx="609" cy="625" r="4" class="junction-gnd" />
+
+  <!-- Pin 15 (A / LED+) through 220Ω Resistor to +5V -->
+  <path d="M 869 310 L 869 445" class="wire-5v" />
+  <rect x="849" y="445" width="40" height="75" class="resistor" />
+  <text x="869" y="480" text-anchor="middle" class="comp-label">220Ω</text>
+  <text x="869" y="497" text-anchor="middle" class="note-label">LED</text>
+  <path d="M 869 520 L 869 560 L 950 560 L 950 85" class="wire-5v" />
+  <circle cx="950" cy="85" r="4" class="junction-5v" />
+
+  <!-- Pin 16 (K / LED-) to GND -->
+  <path d="M 895 310 L 895 625" class="wire-gnd" />
+  <circle cx="895" cy="625" r="4" class="junction-gnd" />
+
+  <!-- ==================== PUSH BUTTON & PULL-DOWN ==================== -->
+  <!-- Push Button Box -->
+  <rect x="345" y="468" width="75" height="54" class="component-box" />
+  <text x="382" y="492" text-anchor="middle" class="comp-label">PUSH</text>
+  <text x="382" y="508" text-anchor="middle" class="comp-label">BUTTON</text>
+
+  <!-- +5V to Push Button (from x=440 +5V line at y=495) -->
+  <path d="M 420 495 L 440 495" class="wire-5v" />
+  <circle cx="440" cy="495" r="4" class="junction-5v" />
+
+  <!-- Push Button Output to Arduino D6 (y=495) -->
+  <path d="M 295 495 L 345 495" class="wire-btn" />
+  <circle cx="320" cy="495" r="4" class="junction-btn" />
+
+  <!-- 10kΩ Pull-Down Resistor from D6 node (x=320) to GND -->
+  <path d="M 320 495 L 320 535" class="wire-btn" />
+  <rect x="295" y="535" width="50" height="60" class="resistor" />
+  <text x="320" y="562" text-anchor="middle" class="comp-label">10kΩ</text>
+  <text x="320" y="578" text-anchor="middle" class="note-label">Pull-dn</text>
+  <path d="M 320 595 L 320 625" class="wire-gnd" />
+  <circle cx="320" cy="625" r="4" class="junction-gnd" />
+
+  <!-- Legend / Notes -->
+  <rect x="640" y="485" width="190" height="110" class="component-box" />
+  <text x="655" y="507" class="comp-label">WIRING LEGEND</text>
+  <line x1="655" y1="523" x2="685" y2="523" class="wire-5v" />
+  <text x="695" y="527" class="note-label">+5V Power</text>
+  <line x1="655" y1="541" x2="685" y2="541" class="wire-gnd" />
+  <text x="695" y="545" class="note-label">Ground (GND)</text>
+  <line x1="655" y1="559" x2="685" y2="559" class="wire-ctrl" />
+  <text x="695" y="563" class="note-label">LCD Control (RS, E)</text>
+  <line x1="655" y1="577" x2="685" y2="577" class="wire-data" />
+  <text x="695" y="581" class="note-label">LCD Data (D4–D7)</text>
+</svg>
