@@ -7,7 +7,7 @@
 * LCD racing car
   [[code](https://github.com/wq2012/embedded/blob/master/Arduino/LCD_racing_car/racing_car.ino)]
   [[demo](https://www.youtube.com/watch?v=AaIZ4X26AM8)]
-  [[schematic](https://github.com/wq2012/embedded/blob/master/Arduino/LCD_racing_car/README.md)]
+  [[schematic](https://github.com/wq2012/embedded/blob/master/Arduino/LCD_racing_car/schematic.svg)]
 
 ---
 
