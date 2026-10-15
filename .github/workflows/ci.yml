@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  cpplint:
+    name: C++ Lint (cpplint)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install cpplint
+        run: pip install cpplint
+
+      - name: Run cpplint
+        run: python -m cpplint --extensions=ino --linelength=80 --filter=-runtime/int Arduino/LCD_racing_car/racing_car.ino
+
+  arduino-build:
+    name: Build Arduino Sketches
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Arduino CLI
+        uses: arduino/setup-arduino-cli@v2
+
+      - name: Install Arduino AVR core and libraries
+        run: |
+          arduino-cli core update-index
+          arduino-cli core install arduino:avr
+          arduino-cli lib install "LiquidCrystal"
+
+      - name: Compile LCD_racing_car for Arduino Uno
+        run: |
+          mkdir -p /tmp/racing_car
+          cp Arduino/LCD_racing_car/racing_car.ino /tmp/racing_car/racing_car.ino
+          arduino-cli compile --fqbn arduino:avr:uno /tmp/racing_car

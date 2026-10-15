@@ -1,4 +1,4 @@
-# Embedded Code [![Build Status](https://travis-ci.org/wq2012/embedded.svg?branch=master)](https://travis-ci.org/wq2012/embedded)
+# Embedded Code [![CI](https://github.com/wq2012/embedded/actions/workflows/ci.yml/badge.svg)](https://github.com/wq2012/embedded/actions/workflows/ci.yml)
 
 ## Projects
 
@@ -7,7 +7,7 @@
 * LCD racing car
   [[code](https://github.com/wq2012/embedded/blob/master/Arduino/LCD_racing_car/racing_car.ino)]
   [[demo](https://www.youtube.com/watch?v=AaIZ4X26AM8)]
-  [[schematic](Arduino/LCD_racing_car/README.md)]
+  [[schematic](https://github.com/wq2012/embedded/blob/master/Arduino/LCD_racing_car/README.md)]
 
 ---
 
@@ -169,9 +169,3 @@ flowchart LR
     D3 -->|D6| LCD_DATA
     D2 -->|D7| LCD_DATA
 ```
-
----
-
-## Information
-
-* [Travis integration guide](https://github.com/adafruit/travis-ci-arduino)
